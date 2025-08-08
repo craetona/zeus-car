@@ -358,35 +358,42 @@ void line_track(bool useMag)
     break;
   }
 
-  int16_t deltaAngle = currentAngle - angle;
-  if (deltaAngle > 180)
-  {
-    deltaAngle -= 360;
-  }
-  else if (deltaAngle < -180)
-  {
-    deltaAngle += 360;
-  }
+  // int16_t deltaAngle = currentAngle - angle;
+  // if (deltaAngle > 180)
+  // {
+  //   deltaAngle -= 360;
+  // }
+  // else if (deltaAngle < -180)
+  // {
+  //   deltaAngle += 360;
+  // }
 
-  if (deltaAngle > 90)
-  {
-    angle -= 180;
-    offset *= -1;
-  }
-  else if (deltaAngle < -90)
-  {
-    angle += 180;
-    offset *= -1;
-  }
-  currentAngle = angle + (offset * LINE_TRACK_OFFSET_ANGLE);
+  // if (deltaAngle > 90)
+  // {
+  //   angle -= 180;
+  //   offset *= -1;
+  // }
+  // else if (deltaAngle < -90)
+  // {
+  //   angle += 180;
+  //   offset *= -1;
+  // }
+  // currentAngle = angle + (offset * LINE_TRACK_OFFSET_ANGLE);
+
+  int8_t rotPower = angle * 1.2 + offset * 15;
+  if (rotPower > 80) rotPower = 80;
+  if (rotPower < -80) rotPower = -80;
+
+  int8_t movePower = LINE_TRACK_POWER;
+  if (abs(angle) < 10 && offset == 0) movePower += 10;
 
   if (useMag)
   {
-    carMoveFieldCentric(currentAngle, LINE_TRACK_POWER, 0, false, true);
+    carMoveFieldCentric(0, movePower, rotPower, false, true);
   }
   else
   {
-    carMove(currentAngle, LINE_TRACK_POWER, 0, false);
+    carMove(0, movePower, rotPower, false);
   }
 }
 

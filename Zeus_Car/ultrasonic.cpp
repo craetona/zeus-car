@@ -46,6 +46,7 @@ float getUsSmart() {
 
   int16_t deltaAngle = abs(currentAngle - lastUsCheckAngle);
   if (deltaAngle > 180) deltaAngle = 360 - deltaAngle;
+  float bufferZone = (lastUsDistance < 0 || lastUsDistance < ULTRASONIC_AVOIDANCE_THRESHOLD*2) ? 4 : 12;
 
   if (!carIsMoving) {
     // Not moving, check every 1sec or if last read was obstacle
@@ -59,8 +60,7 @@ float getUsSmart() {
     // Moving, check when nearing boundary of last read distance
     float timePassed = (now - lastUsCheckTime) / 1000.0;
     float estTravel = timePassed * carVelocity;
-    float bufferZone = 8;
-    if (lastUsDistance < 0 || estTravel + bufferZone > lastUsDistance || now - lastUsCheckTime > 300 || deltaAngle > 15) {
+    if (lastUsDistance < 0 || estTravel + bufferZone > lastUsDistance || now - lastUsCheckTime > 250 || deltaAngle > 12) {
       lastUsDistance = ultrasonicRead();
       lastUsCheckTime = now;
       lastUsCheckAngle = currentAngle;
