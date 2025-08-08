@@ -60,7 +60,7 @@ float getUsSmart() {
     // Moving, check when nearing boundary of last read distance
     float timePassed = (now - lastUsCheckTime) / 1000.0;
     float estTravel = timePassed * carVelocity;
-    if (lastUsDistance < 0 || estTravel + bufferZone > lastUsDistance || now - lastUsCheckTime > 250 || deltaAngle > 12) {
+    if (estTravel + bufferZone > lastUsDistance || now - lastUsCheckTime > 250 || deltaAngle > 12) {
       lastUsDistance = ultrasonicRead();
       lastUsCheckTime = now;
       lastUsCheckAngle = currentAngle;
