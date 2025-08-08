@@ -16,6 +16,7 @@
 int32_t _lastError = 0;
 int32_t errorIntegral = 0;
 int16_t originHeading;
+bool carIsMoving = false;
 
 /** 
 * @brief Initialize the motor, and (block) the initialization compass
@@ -95,6 +96,7 @@ void carSetMotors(int8_t power0, int8_t power1, int8_t power2, int8_t power3) {
 void carMove(int16_t angle, int8_t power, int8_t rot, bool drift) {
   int8_t power_0, power_1, power_2, power_3;
   float ratio;
+  carIsMoving = (power != 0 || rot != 0);
   // Make forward 0
   angle += 90;
   // Offset angle as 0 to the front

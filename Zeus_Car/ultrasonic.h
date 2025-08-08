@@ -15,6 +15,9 @@
 /** Return the distance read by the ultrasonic module, unit cm */
 float ultrasonicRead();
 
+/** Return the distance from ultrasoncRead if the car is moving to unknown territory */
+float getUsSmart();
+
 /** Determine whether there is an obstacle ahead according to the set ULTRASONIC_AVOIDANCE_THRESHOLD */
 bool ultrasonicIsObstacle();
 

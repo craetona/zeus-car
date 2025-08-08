@@ -398,7 +398,7 @@ void obstacleFollowing()
   byte result = irObstacleRead();
   bool leftIsClear = result & 0b00000001;
   bool rightIsClear = result & 0b00000010;
-  float usDistance = ultrasonicRead();
+  float usDistance = getUsSmart();
 
   if (usDistance < 4)
   {
