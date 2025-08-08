@@ -60,7 +60,7 @@ float getUsSmart() {
     float timePassed = (now - lastUsCheckTime) / 1000.0;
     float estTravel = timePassed * carVelocity;
     float bufferZone = 8;
-    if (lastUsDistance < 0 || now - lastUsCheckTime > 300 || deltaAngle > 15) {
+    if (lastUsDistance < 0 || estTravel + bufferZone > lastUsDistance || now - lastUsCheckTime > 300 || deltaAngle > 15) {
       lastUsDistance = ultrasonicRead();
       lastUsCheckTime = now;
       lastUsCheckAngle = currentAngle;
